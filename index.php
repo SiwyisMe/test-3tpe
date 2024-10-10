@@ -18,14 +18,25 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     $sql = "INSERT INTO car (car_brand, car_model, car_color, car_production_date, car_first_registration_date) 
             VALUES ('$car_brand', '$car_model', '$car_color', '$car_production_date', '$car_first_registration_date')";
-}
 
-if (mysqli_query($conn, $sql)) {
-    echo "New record created successfully";
-} else {
-    echo "Error: " . $sql . "<br>" . mysqli_error($conn);
+    if (mysqli_query($conn, $sql)) {
+        echo "New record created successfully";
+    } else {
+        echo "Error: " . $sql . "<br>" . mysqli_error($conn);
+    }
 }
 ?>
 
-
-?>
+<form method="post">
+    <label for="car_brand">Car Brand:</label>
+    <input type="text" id="car_brand" name="car_brand" required><br>
+    <label for="car_model">Car Model:</label>
+    <input type="text" id="car_model" name="car_model" required><br>
+    <label for="car_color">Car Color:</label>
+    <input type="text" id="car_color" name="car_color" required><br>
+    <label for="car_production_date">Production Date:</label>
+    <input type="date" id="car_production_date" name="car_production_date" required><br>
+    <label for="car_first_registration_date">First Registration Date:</label>
+    <input type="date" id="car_first_registration_date" name="car_first_registration_date" required><br>
+    <input type="submit" value="Submit">
+</form>
