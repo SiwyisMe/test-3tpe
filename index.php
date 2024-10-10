@@ -9,15 +9,23 @@ if (!$conn) {
     die("Connection failed: " . mysqli_connect_error());
 }
 
+function calculateCarAge($productionDate) {
+    $currentDate = new DateTime();
+    $prodDate = new DateTime($productionDate);
+    $age = $currentDate->diff($prodDate);
+    return $age->y;
+}
+
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $car_brand = $_POST['car_brand'];
     $car_model = $_POST['car_model'];
     $car_color = $_POST['car_color'];
     $car_production_date = $_POST['car_production_date'];
     $car_first_registration_date = $_POST['car_first_registration_date'];
+    $car_age = calculateCarAge($car_production_date);
 
-    $sql = "INSERT INTO car (car_brand, car_model, car_color, car_production_date, car_first_registration_date) 
-            VALUES ('$car_brand', '$car_model', '$car_color', '$car_production_date', '$car_first_registration_date')";
+    $sql = "INSERT INTO car (car_brand, car_model, car_color, car_production_date, car_first_registration_date, car_age) 
+            VALUES ('$car_brand', '$car_model', '$car_color', '$car_production_date', '$car_first_registration_date', $car_age)";
 
     if (mysqli_query($conn, $sql)) {
         echo "New record created successfully";
@@ -25,8 +33,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         echo "Error: " . $sql . "<br>" . mysqli_error($conn);
     }
 }
-?>
 
+?>
 <form method="post">
     <label for="car_brand">Car Brand:</label>
     <input type="text" id="car_brand" name="car_brand" required><br>
