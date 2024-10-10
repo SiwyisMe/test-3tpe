@@ -24,6 +24,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $car_first_registration_date = $_POST['car_first_registration_date'];
     $car_age = calculateCarAge($car_production_date);
 
+    if($car_production_date > $car_first_registration_date){
+        echo "nie może być zarejstrowany wcześniej niż data produkcji";
+        exit();
+    }
     $sql = "INSERT INTO car (car_brand, car_model, car_color, car_production_date, car_first_registration_date, car_age) 
             VALUES ('$car_brand', '$car_model', '$car_color', '$car_production_date', '$car_first_registration_date', $car_age)";
 
