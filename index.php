@@ -20,5 +20,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             VALUES ('$car_brand', '$car_model', '$car_color', '$car_production_date', '$car_first_registration_date')";
 }
 
+if (mysqli_query($conn, $sql)) {
+    echo "New record created successfully";
+} else {
+    echo "Error: " . $sql . "<br>" . mysqli_error($conn);
+}
+?>
+
 
 ?>
